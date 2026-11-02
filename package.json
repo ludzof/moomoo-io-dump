@@ -1,0 +1,22 @@
+{
+  "name": "moomoo-io-dump",
+  "version": "1.0.0",
+  "description": "Comprehensive reverse engineering, protocol deobfuscation, and network capture analysis for MooMoo.io",
+  "type": "module",
+  "main": "src/protocol/moomoo-protocol.js",
+  "scripts": {
+    "start": "node src/tools/decode-capture.mjs",
+    "decode": "node src/tools/decode-capture.mjs"
+  },
+  "keywords": [
+    "moomoo-io",
+    "reverse-engineering",
+    "protocol",
+    "websocket",
+    "deobfuscation",
+    "anti-cheat",
+    "webassembly"
+  ],
+  "author": "ludzof",
+  "license": "MIT"
+}
