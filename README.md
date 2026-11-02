@@ -89,7 +89,9 @@ MooMoo.io implements a multi-layer defense layer called **"Seal"** designed to b
   - `BUILD_SALT = 2988461847` (`0xB227C097`)
 - **Mechanism**:
   Embeds a 163-byte WebAssembly binary exporting function `m(seed, index)`. When connecting, the server sends a 32-bit random timestamp `seedA` and a 16-byte hex `salt`. The client computes:
-  $$\text{masterKey}[i] = \text{salt}[i] \oplus m(\text{seedA} \mid 0, i)$$
+  ```javascript
+  masterKey[i] = salt[i] ^ wasm_m(seedA | 0, i);
+  ```
 
 ### 2. Self-Bundle Integrity Check
 During startup, an asynchronous self-inspection routine fetches its own bundle script:
@@ -121,7 +123,9 @@ Instead of static action strings (such as `"sp"` or `"2"`), action opcodes are s
 - **Client Opcodes (22 actions)**: `["M", "D", "9", "e", "F", "z", "H", "K", "L", "N", "b", "P", "Q", "c", "6", "S", "0", "T", "R", "A", "V", "I"]`
 - **Server Opcodes (42 events)**: `["A", "B", "C", "D", "E", "a", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z", "g", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "W", "F", "p", "q", "r", "m"]`
 - **Shuffle**: Driven by **Mulberry32 PRNG** seeded with:
-  $$\text{seed} = (\text{seedA} \oplus (\text{BUILD\_SALT} \times 2654435761)) \gg 0$$
+  ```javascript
+  seed = (seedA ^ Math.imul(BUILD_SALT, 2654435761)) >>> 0;
+  ```
 
 ---
 
